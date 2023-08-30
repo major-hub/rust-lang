@@ -172,7 +172,7 @@ Ownerlik esa o'zida qoladi.
 > xoxlagancha immutable (read only) reference qo'llashimiz mumkin.
 
 > lekin mutable va immutable ni aralashtirib qo'llab bo'lmaydi
- 
+
 > References - har doim yaroqli bo'lishi kk. Bo'lmasam `dangle` holatiga tushadi
 
 #### Dangling References
@@ -187,7 +187,9 @@ fn dangle() -> &String {
     &s
 }
 ```
+
 Natija:
+
 ```text
   | fn dangle() -> &String {
   |                ^ expected named lifetime parameter
@@ -198,7 +200,137 @@ help: consider using the `'static` lifetime
 8 | fn dangle() -> &'static String {
   |                 +++++++
 ```
+
 Ya'ni tagi yo'q xotiraga pointer qilishni oldini oladi (kompilyator)
 
 ---
 
+## Slice
+
+> Slice lar bu aniq xotiraga ega bo'lmagan (`&` yani ptr), array (yoki Vector) larning qismlar (yoki to'liq holatini)ini
+> ifodalaydi. \
+
+```rust
+let s = "Hello World";
+let my_slice = & s[0..5]; // Hello
+```
+
+> slice dagi oraliqni ko'rinishlari
+> - `[0..5]` - [0; 5)
+> - `[..5]` - [0; 5) bu ham yuqoridagiga ekvivalent
+> - `[2..]` - [2; last) 2 dan array (vec, str, String, ..) ni oxirigacha
+> - `[..]` - [first; last] boshidan oxirigacha yani toliq holatda boglanadi
+
+---
+
+## Struct
+
+E'lon qilish
+
+```rust
+struct User {
+    is_active: bool,
+    full_name: String,
+    username: String,
+    id: usize,
+}
+```
+
+Object olish
+
+```rust
+fn main() {
+    let user = User {
+        is_active: true,
+        full_name: String::from("Solijonov Otabek Solijon o'g'li"),
+        username: String::from("mrsolijonov"),
+        id: 1,
+    };
+}
+```
+
+Object oladigan funksiya
+
+```rust
+fn new_user(full_name: String, username: String) -> User {
+    User {
+        is_active: true,
+        full_name: full_name,
+        username: username,
+        id: 1,
+    }
+}
+```
+
+> > Attributlar bir xil nomli bolganda **Shorthand** dan foydalanishimiz mumkin
+>
+> ```rust
+> fn new_user(full_name: String, username: String) -> User {
+>     User {
+>         is_active: true,
+>         full_name,
+>         username,
+>         id: 1,
+>     }
+> }
+> ```
+
+> Struct update
+
+```rust
+fn main() {
+    let user1 = User {
+        is_active: true,
+        full_name: String::from("Solijonov Otabek Solijon o'g'li"),
+        username: String::from("mrsolijonov"),
+        id: 1,
+    };
+
+    let user2 = User {
+        is_active: user1.is_active,
+        full_name: String::from("Askarov Abror"),
+        username: user1.username, // moved [can't use user1.username]
+        id: user1.id,
+    };
+
+    let user3 = User {
+        full_name: String::from("Mamatov Rashid og'a"),
+        ..user2  // moved [also can't use user2.username]
+        // id and is_active are also moved, but they are in stack memory not heap
+    };
+}
+```
+
+### Tuple Struct
+
+> Tuple larni nomlab bir biridan ajratish uchun foydalaniladi.
+
+```rust
+struct Color(i32, i32, i32);
+
+struct Point(i32, i32, i32);
+
+fn main() {
+    let red = Color(255, 0, 0);
+    let begin_at = Point(2, 6, 3); // not the same with Color {}
+
+    println!("{}", red.0)  // call by index
+}
+```
+
+Note: Ikkita bir xil tuple ham bir biriga teng bo'lmayda (boshqa nomda chunki)
+
+
+---
+
+### Non field Struct
+
+```rust
+struct AlwaysEqual;
+
+fn main() {
+    let subject = AlwaysEqual;
+}
+```
+
+> Bunda hech qanday ma'lumotlar saqlanmaydi lekin, `trait` lardan foydalanish mumkin

@@ -1,7 +1,8 @@
 mod found_the_secret_number;
 
 
+struct AlwaysEqual;
+
 fn main() {
-    let s = String::from("Hello World Mudaki");
-    println!("{:?}", s.);
+    let subject = AlwaysEqual;
 }

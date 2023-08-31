@@ -334,3 +334,6 @@ fn main() {
 ```
 
 > Bunda hech qanday ma'lumotlar saqlanmaydi lekin, `trait` lardan foydalanish mumkin
+
+---
+

@@ -2,6 +2,7 @@ use std::cmp::Ordering;
 use std::io;
 use rand::Rng;
 
+#[warn(dead_code)]
 pub fn found() {
     println!("Raqamni topish o'yini!");
 

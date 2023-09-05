@@ -387,7 +387,7 @@ fn main() {
 
 #### Associate Functions (Bog'langan funksiyalar)
 
-> `self` siz ishlatilgan (asosan konstruktorlarda) funksiyalar `::` orqali chaqiriladi
+> `self` siz ishlatilgan (asosan konstruktorlarda) funksiyalar `::` orqali chaqiriladi. Yuqoridagi misolda :up:
 
 
 

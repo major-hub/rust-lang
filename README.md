@@ -383,7 +383,7 @@ fn main() {
 
 > `&self` - bu `self: &Self` ning qisqartmasi
 
-> [!NOTE] \ o'qish (`&self`), o'zgartirish (`&mut self`) yoki iste'mol qilish (`self`)
+> [!NOTE] <br> o'qish (`&self`), o'zgartirish (`&mut self`) yoki iste'mol qilish (`self`)
 
 #### Associate Functions (Bog'langan funksiyalar)
 

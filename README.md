@@ -1,5 +1,3 @@
---- 
-
 > Funksiyaga biror o'zgaruvchi (`mut` qilingan) berilayotgan bo'lsa, \
 > `&` qilib havola berilganda, pointer ga ham `mut` berish kerak. \
 > Sababi `&variable` pointerlar ham default o'zgarmas bo'ladi. \

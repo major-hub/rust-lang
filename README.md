@@ -337,3 +337,60 @@ fn main() {
 
 ---
 
+### `impl` - Implementatsiya
+
+> Bu struct yoki trait ga tegish bo'lgan funksiyalar to'plami
+
+```rust
+struct Rectangle {
+    height: i32,
+    width: i32,
+}
+
+impl Rectangle {
+    fn new(height: i32, width: i32) -> Self {
+        // Constructor
+        // ::new() - because self not called
+        Self {
+            height,
+            width,
+        }
+    }
+    fn area(self: &Self) -> i32 {
+        self.height * self.width
+    }
+
+    fn perimeter(&self) -> i32 {
+        2 * (self.height + self.width)
+    }
+
+    fn can_catch(&self, another_rectangle: &Rectangle) -> bool {
+        self.height >= another_rectangle.height && self.width >= another_rectangle.width ||
+            self.height >= another_rectangle.width && self.width >= another_rectangle.height
+    }
+}
+
+fn main() {
+    let rec1 = Rectangle {
+        height: 15,
+        width: 10,
+    };
+
+    let rec2 = Rectangle::new(10, 14);
+    println!("{}", rec1.can_catch(&rec2));
+}
+```
+
+> method larga `.` nuqta orqali murojaat qilish mumkin
+
+> `&self` - bu `self: &Self` ning qisqartmasi
+
+> [!NOTE] \ o'qish (`&self`), o'zgartirish (`&mut self`) yoki iste'mol qilish (`self`)
+
+#### Associate Functions (Bog'langan funksiyalar)
+
+> `self` siz ishlatilgan (asosan konstruktorlarda) funksiyalar `::` orqali chaqiriladi
+
+
+
+

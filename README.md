@@ -389,6 +389,21 @@ fn main() {
 
 > `self` siz ishlatilgan (asosan konstruktorlarda) funksiyalar `::` orqali chaqiriladi. Yuqoridagi misolda :up:
 
+> `impl` dagi funksiyalarni alohida implementatsiya yozish tavsiya qilinar ekan
 
+```rust
+impl Rectangle {
+    fn new(height: i32, width: i32) -> Self { Self { height, width } }
+}
+
+impl Rectangle {
+    fn can_catch(&self, another_rectangle: &Rectangle) -> bool {
+        self.height >= another_rectangle.height && self.width >= another_rectangle.width ||
+            self.height >= another_rectangle.width && self.width >= another_rectangle.height
+    }
+}
+```
+
+---
 
 
